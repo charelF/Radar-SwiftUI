@@ -8,8 +8,41 @@
 
 import SwiftUI
 
+
+
+
 struct ContentView: View {
     var activities: [Activity] = []
+    var body: some View {
+        TabView {
+            Text("Map view, tbi")
+                .tabItem {
+                    VStack {
+                        // the icon is from SF symbols
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
+            }.tag(1)
+            
+            ActivityListView(activities: activities)
+                .tabItem {
+                    VStack {
+                        Image(systemName: "list.bullet")
+                        Text("List")
+                    }
+            }.tag(2)
+        }
+    }
+}
+
+
+
+
+
+
+
+struct ActivityListView: View {
+    var activities: [Activity]
     // do not forget to give default value, otherwhise the call to
     // ContentView in scenedelegate throws an error
     
