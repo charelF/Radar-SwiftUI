@@ -12,13 +12,13 @@ struct ActivityView: View {
     let activity: Activity
     
     var body: some View {
+        //VStack {
         VStack {
-            VStack {
                 
                 ActivityMapView(coordinate: activity.coordinate)
-                    .frame(height: 300)
+                    .frame(height: 200)
                     .cornerRadius(10)
-//                    .edgesIgnoringSafeArea(.top)
+                   .edgesIgnoringSafeArea(.top)
                 
                 
                 Text(activity.emoji)
@@ -26,6 +26,11 @@ struct ActivityView: View {
                 
                 Text(activity.name)
                     .font(.largeTitle)
+                    .bold()
+                
+                Text(Time.stringFromDate(from: activity.activityTime))
+                    .padding()
+                Divider()
                     
                 Text(activity.desc)
                 
@@ -47,7 +52,7 @@ struct ActivityView: View {
             }
             .padding()
             
-        }
+        //}
     }
 }
 

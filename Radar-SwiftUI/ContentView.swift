@@ -7,15 +7,50 @@
 // 
 
 import SwiftUI
+import Combine
+import MapKit
+
+
+enum NetworkError: Error {
+    case noData
+}
+
+
+class DataBase: ObservableObject {
+    @Published var activities: [Activity] = []
+    
+    func getActivities() {
+        guard let url = URL(string: "http://127.0.0.1:8081/activity") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                guard data != nil else { throw NetworkError.noData }
+                let activities = try JSONDecoder().decode([Activity].self, from: data!)
+                DispatchQueue.main.async {
+                    print(activities)
+                    self.activities = activities
+                }
+            } catch {
+                print("JSONDecoder error: \(error)")
+            }
+        }.resume()
+    }
+    
+    init() {
+        getActivities()
+    }
+}
 
 
 
 
 struct ContentView: View {
-    var activities: [Activity] = []
+    
+    @ObservedObject var dataBase = DataBase()
+    
     var body: some View {
         TabView {
-            Text("Map view, tbi")
+            ActivityMapView(coordinates: dataBase.activities.map({ $0.coordinate }))
                 .tabItem {
                     VStack {
                         // the icon is from SF symbols
@@ -24,7 +59,7 @@ struct ContentView: View {
                     }
             }.tag(1)
             
-            ActivityListView(activities: activities)
+            ActivityListView(activities: dataBase.activities)
                 .tabItem {
                     VStack {
                         Image(systemName: "list.bullet")
@@ -60,7 +95,7 @@ struct ActivityListView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(activities: testData)
+        ContentView() //activities: testData)
     }
 }
 
