@@ -56,6 +56,7 @@ struct ActivityMapView: UIViewRepresentable {
     }
 }
 
+
 struct ActivityMapView_Previews: PreviewProvider {
     static var previews: some View {
         ActivityMapView(coordinate: CLLocationCoordinate2D(

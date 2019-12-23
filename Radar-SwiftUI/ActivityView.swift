@@ -12,47 +12,37 @@ struct ActivityView: View {
     let activity: Activity
     
     var body: some View {
-        //VStack {
         VStack {
-                
-                ActivityMapView(coordinate: activity.coordinate)
-                    .frame(height: 200)
-                    .cornerRadius(10)
-                   .edgesIgnoringSafeArea(.top)
-                
-                
-                Text(activity.emoji)
-                    .font(.system(size: 60))
-                
-                Text(activity.name)
-                    .font(.largeTitle)
-                    .bold()
-                
-                Text(Time.stringFromDate(from: activity.activityTime))
-                    .padding()
-                Divider()
-                    
-                Text(activity.desc)
-                
-                
-                
-                Spacer()
-                
-                
-                
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                    Text("Join activity")
-                        .foregroundColor(Color.white)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                    
-                }
-                
-            }
-            .padding()
+            ActivityMapView(coordinate: activity.coordinate)
+                .frame(height: 200)
+                .cornerRadius(10)
+                .edgesIgnoringSafeArea(.top)
             
-        //}
+            Text(activity.emoji)
+                .font(.system(size: 60))
+            
+            Text(activity.name)
+                .font(.largeTitle)
+                .bold()
+            
+            Text(Time.stringFromDate(from: activity.activityTime))
+                .padding()
+        
+            Divider()
+                
+            Text(activity.desc)
+            
+            Spacer()
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                Text("Join activity")
+                    .foregroundColor(Color.white)
+                    .padding(10)
+                    .background(Color.blue)
+                    .cornerRadius(8)
+            }
+        }
+        .padding()
     }
 }
 
