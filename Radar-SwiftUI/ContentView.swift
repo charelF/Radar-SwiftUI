@@ -47,10 +47,9 @@ struct ContentView: View {
     @ObservedObject var data = DataBase()
     
     var body: some View {
-        let activities = data.activities
         return TabView {
             
-            ActivityMapView(coordinates: activities.map({ $0.coordinate }))
+            ActivityMapView(coordinates: data.activities.map({ $0.coordinate }))
                 .tabItem {
                     VStack {
                         Image(systemName: "map")
@@ -58,7 +57,7 @@ struct ContentView: View {
                     }
             }.tag(1)
             
-            ActivityListView(activities: activities)
+            ActivityListView(data: data)
                 .tabItem {
                     VStack {
                         Image(systemName: "list.bullet")
@@ -66,43 +65,6 @@ struct ContentView: View {
                     }
             }.tag(2)
             
-        }
-    }
-}
-
-
-struct ActivityListView: View {
-    var activities: [Activity]
-    
-    var body: some View {
-        NavigationView {
-            List(activities) { activity in
-                ActivityCell(activity: activity)
-            }
-        .navigationBarTitle("Activities")
-        }
-        
-    }
-}
-
-
-struct ActivityCell: View {
-    var activity: Activity
-    
-    var body: some View {
-        NavigationLink(destination: ActivityView(activity: activity)) {
-            Text(activity.emoji)
-                .font(.largeTitle)
-            
-            VStack(alignment: .leading) {
-                Text(activity.name)
-                
-                Text(activity.desc)
-                    .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
-                    .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
-                    .font(.subheadline)
-                    .foregroundColor(Color.gray)
-            }
         }
     }
 }
