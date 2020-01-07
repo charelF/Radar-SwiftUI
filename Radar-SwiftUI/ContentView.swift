@@ -20,7 +20,7 @@ class DataBase: ObservableObject {
     @Published var activities: [Activity] = []
     
     func getActivities() {
-        guard let url = URL(string: "http://127.0.0.1:8081/activity") else { return }
+        guard let url = URL(string: "http://127.0.0.1:8081/activities") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             do {
